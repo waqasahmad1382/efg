@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Anum 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Great Vibes', cursive;
+      background: radial-gradient(circle at top, #000014 20%, #000);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .center {
+      text-align: center;
+      margin-top: 30px;
+    }
+    #countdown {
+      font-size: 3rem;
+      margin-top: 20px;
+      color: #ff69b4;
+      text-shadow: 0 0 10px #ff69b4;
+    }
+    .music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ff69b4;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+    }
+    #fireworksCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      display: none;
+    }
+    .cube-container {
+      perspective: 1000px;
+      width: 200px;
+      height: 200px;
+      margin: 50px auto;
+      position: relative;
+      display: none;
+    }
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      animation: rotateCube 10s linear infinite;
+    }
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    .front  { transform: rotateY(0deg) translateZ(100px); background-image: url('anum1.jpg'); }
+    .back   { transform: rotateY(180deg) translateZ(100px); background-image: url('anum2.jpg'); }
+    .right  { transform: rotateY(90deg) translateZ(100px); background-image: url('anum3.jpg'); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); background-image: url('anum4.jpg'); }
+    .top    { transform: rotateX(90deg) translateZ(100px); background-image: url('anum5.jpg'); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); background-image: url('anum6.jpg'); }
+
+    @keyframes rotateCube {
+      from { transform: rotateX(0deg) rotateY(0deg); }
+      to { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .orbit {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      margin: auto;
+      animation: rotateOrbit 20s linear infinite;
+      display: none;
+    }
+    .orbit img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      position: absolute;
+      animation: float 2s ease-in-out infinite alternate;
+    }
+    @keyframes rotateOrbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes float {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-20px); }
+    }
+
+    .orbit img:nth-child(1) { top: 0; left: 160px; }
+    .orbit img:nth-child(2) { top: 40px; left: 300px; }
+    .orbit img:nth-child(3) { top: 160px; left: 330px; }
+    .orbit img:nth-child(4) { top: 280px; left: 260px; }
+    .orbit img:nth-child(5) { top: 330px; left: 120px; }
+    .orbit img:nth-child(6) { top: 220px; left: 10px; }
+.orbit img:nth-child(7) { top: 80px; left: 10px; }
+    .cake {
+      margin-top: 50px;
+      animation: appear 2s ease-out;
+      display: none;
+    }
+    .cake img {
+      width: 200px;
+    }
+    @keyframes appear {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .message {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+      background-color: black;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px red;
+      color: #fff;
+    }
+    .message img {
+      width: 200px;
+      border-radius: 20px;
+      margin-top: 10px;
+      box-shadow: 0 0 20px red;
+    }
+
+    button.show-message {
+      background: #ff1493;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 18px;
+      border-radius: 30px;
+      margin-top: 30px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    button.show-message:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" loop autoplay>
+    <source src="romantic.mp3" type="audio/mp3" />
+  </audio>
+
+  <button class="music-toggle" onclick="toggleMusic()">🔊 Music</button>
+
+  <canvas id="fireworksCanvas"></canvas>
+
+  <div class="center">
+    <h1>Happy Birthday, Anum 🎂💖</h1>
+    <div id="countdown">10</div>
+  </div>
+
+  <div class="cube-container" id="cubeContainer">
+    <div class="cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face right"></div>
+      <div class="face left"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+  </div>
+
+  <div class="orbit" id="orbit">
+    <img src="anum7.jpg">
+    <img src="anum8.jpg">
+    <img src="anum9.jpg">
+    <img src="anum10.jpg">
+    <img src="anum11.jpg">
+    <img src="anum12.jpg">
+    <img src="anum13.jpg">
+  </div>
+
+  <div class="cake center" id="cake">
+    <h2>🎉 Let's Cut the Cake! 🎂</h2>
+    <img src="cake.png" alt="Cake">
+  </div>
+
+  <div class="center">
+    <button class="show-message" onclick="showMessage()">💌 Final Surprise</button>
+  </div>
+
+  <div class="message" id="finalMessage">
+    <h2>To the most beautiful girl in my world 💖 I promise to love you more with every sunrise, to stand beside you through every chapter, and to make your heart feel cherished every single day.</h2>
+    <p>You make my world brighter every single day. Happy Birthday, Anum! 🎈💐
+On this special day, 
+I just want to say:
+You are my heart, my happiness, and my forever.
+Happy Birthday, Anum. 🎂🎉My Love!💖</p>
+    <img src="her-photo.jpg" alt="Anum Photo">
+  </div>
+
+  <script>
+    // Countdown for 10 seconds
+    let countdownTime = 10;
+    const countdown = document.getElementById("countdown");
+
+    function updateCountdown() {
+      countdown.textContent = countdownTime;
+      if (countdownTime > 0) {
+        countdownTime--;
+      } else {
+        clearInterval(countdownInterval);
+        startCelebration();
+      }
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Start the celebration after countdown ends
+    function startCelebration() {
+      document.getElementById('fireworksCanvas').style.display = 'block';
+      document.getElementById('cubeContainer').style.display = 'block';
+      document.getElementById('orbit').style.display = 'block';
+      document.getElementById('cake').style.display = 'block';
+    }
+
+    // Music toggle
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      music.paused ? music.play() : music.pause();
+    }
+
+    // Fireworks animation
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particles = [];
+
+    function createFirework() {
+      const count = 100;
+      const x = Math.random() * canvas.width;
+      const y = canvas.height;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          angle: Math.random() * 2 * Math.PI,
+          speed: Math.random() * 4 + 2,
+          radius: 2,
+          alpha: 1
+        });
+      }
+    }
+
+    function animateFireworks() {
+      ctx.fillStyle = "rgba(0,0,0,0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.alpha -= 0.01;
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 105, 180, ${p.alpha})`;
+        ctx.fill();
+      }
+
+      if (Math.random() < 0.05) {
+        createFirework();
+      }
+
+      requestAnimationFrame(animateFireworks);
+    }
+
+    animateFireworks();
+
+    // Final message
+    function showMessage() {
+      document.getElementById('finalMessage').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
